@@ -8,7 +8,7 @@ def generate_urls(base_url, num_urls):
     We add random characters to the end of the URL to break any caching
     mechanisms in the requests library or the server
     """
-    for i in xrange(num_urls):
+    for i in range(num_urls):
         yield base_url + "".join(random.sample(string.ascii_lowercase, 10))
 
 
@@ -28,4 +28,4 @@ if __name__ == "__main__":
     start = time.time()
     result = run_experiment(base_url, num_iter)
     end = time.time()
-    print("Result: {}, Time: {}".format(result, end - start))
+    print(("Result: {}, Time: {}".format(result, end - start)))

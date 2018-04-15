@@ -1,4 +1,4 @@
-from ll import LL
+from .ll import LL
 import math
 
 
@@ -25,6 +25,6 @@ class HyperLogLog(LL):
 if __name__ == "__main__":
     import mmh3
     hll = HyperLogLog(8)
-    for i in xrange(100000):
+    for i in range(100000):
         hll.add(mmh3.hash(str(i)))
-    print len(hll)
+    print(len(hll))

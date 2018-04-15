@@ -30,8 +30,8 @@ def run_workers():
         p.join()
 
     # print the final value
-    print "Expecting to see a count of {}".format(total_expected_count)
-    print "We have counted to {}".format(rds[REDIS_KEY])
+    print("Expecting to see a count of {}".format(total_expected_count))
+    print("We have counted to {}".format(rds[REDIS_KEY]))
 
 
 if __name__ == "__main__":

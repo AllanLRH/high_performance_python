@@ -18,7 +18,7 @@ class BloomFilter(object):
 
     def _indexes(self, key):
         h1, h2 = mmh3.hash64(key)
-        for i in xrange(self.num_hashes):
+        for i in range(self.num_hashes):
             yield (h1 + i * h2) % self.num_bits
 
     def add(self, key):

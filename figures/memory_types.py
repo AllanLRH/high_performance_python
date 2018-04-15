@@ -38,7 +38,7 @@ if __name__ == "__main__":
 
     names = [line['type'] for line in data]
     values = defaultdict(dict)
-    for field in data[0].iterkeys():
+    for field in data[0].keys():
         if field == "type":
             continue
         f, unit = field.split(" ")
@@ -46,12 +46,12 @@ if __name__ == "__main__":
         values[name]['unit'] = unit.strip('()')
         values[name][t] = np.asarray([float(line[field]) for line in data])
 
-    for field in values.iterkeys():
+    for field in values.keys():
         values[field]['avg'] = (
             values[field]['min'] + values[field]['max']) / 2.0
         values[field]['extend'] = values[field]['max'] - values[field]['avg']
 
-    for i, f in enumerate(values.iterkeys()):
+    for i, f in enumerate(values.keys()):
         py.subplot(2, 2, i)
         plot_field(names, f, values[f])
 

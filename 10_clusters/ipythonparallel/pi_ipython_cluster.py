@@ -15,7 +15,7 @@ def calculate_pi(nbr_estimates):
     # print "hello_world_from_ian"
     # print nbr_estimates
     #nbr_estimates = 1e6
-    steps = xrange(int(nbr_estimates))
+    steps = range(int(nbr_estimates))
     nbr_trials_in_unit_circle = 0
     for step in steps:
         x = random.uniform(0, 1)
@@ -30,7 +30,7 @@ if __name__ == "__main__":
     c = Client()
     # print c.ids
     nbr_engines = len(c.ids)
-    print "We're using {} engines".format(nbr_engines)
+    print("We're using {} engines".format(nbr_engines))
 
     dview = c[:]
 
@@ -44,8 +44,8 @@ if __name__ == "__main__":
     #nbr_jobs = 8
     #nbr_in_unit_circles = dview.map_sync(calculate_pi, [NBR_ESTIMATES] * nbr_jobs)
 
-    print "Estimates made:", nbr_in_unit_circles
+    print("Estimates made:", nbr_in_unit_circles)
 
     # work using the engines only
     nbr_jobs = len(nbr_in_unit_circles)
-    print sum(nbr_in_unit_circles) * 4 / NBR_ESTIMATES / nbr_jobs
+    print(sum(nbr_in_unit_circles) * 4 / NBR_ESTIMATES / nbr_jobs)

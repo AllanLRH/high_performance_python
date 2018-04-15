@@ -7,7 +7,7 @@ def check_prime(n):
         return False
     from_i = 3
     to_i = math.sqrt(n) + 1
-    for i in xrange(from_i, int(to_i), 2):
+    for i in range(from_i, int(to_i), 2):
         if n % i == 0:
             return False
     return True
@@ -28,4 +28,4 @@ if __name__ == "__main__":
             repeat=20,
             number=1,
             setup="from __main__ import check_prime")
-        print "{:24} ({}) {: 3.6f}s".format(label, nbr, min(time_costs))
+        print("{:24} ({}) {: 3.6f}s".format(label, nbr, min(time_costs)))

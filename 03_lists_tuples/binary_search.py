@@ -23,7 +23,7 @@ if __name__ == "__main__":
     iterations = 10000
 
     for haystack_size in (10000, 100000, 1000000):
-        haystack = range(haystack_size)
+        haystack = list(range(haystack_size))
         for needle in (1, 6000, 9000, 1000000):
             index = binary_search(needle, haystack)
             t = timeit.timeit(
@@ -31,10 +31,10 @@ if __name__ == "__main__":
                 setup=setup,
                 number=iterations
             )
-            print "Value {: <8} found in haystack of size {: <8} at index " \
+            print("Value {: <8} found in haystack of size {: <8} at index " \
                 "{: <8} in {:.5e} seconds".format(
                     needle,
                     len(haystack),
                     index,
                     t / iterations
-                )
+                ))

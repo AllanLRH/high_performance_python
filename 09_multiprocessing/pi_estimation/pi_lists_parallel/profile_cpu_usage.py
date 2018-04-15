@@ -4,7 +4,7 @@ import psutil
 from matplotlib import pyplot as plt
 import subprocess
 import argparse
-import cPickle
+import pickle
 
 
 SHRINK = 1  # fraction to shrink colorbar by if it overextends
@@ -56,10 +56,10 @@ if __name__ == "__main__":
         xargs.append("--processes")
         SLEEP_FOR = {8: 3, 4: 4, 2: 7, 1: 15}[args.nbr_processes]
     else:
-        print "THREADED VERSION"
+        print("THREADED VERSION")
         SLEEP_FOR = {4: 20}[args.nbr_processes]
 
-    print "Using:", xargs
+    print("Using:", xargs)
 
     ROOT_NAME = "08_" + "_".join(
         s.replace(
@@ -72,7 +72,7 @@ if __name__ == "__main__":
                     "/",
                     "_") for s in xargs[
                         1:])
-    print ROOT_NAME
+    print(ROOT_NAME)
     PICKLE_NAME = ROOT_NAME + ".pickle"
     FIG_NAME = ROOT_NAME + ".png"
 
@@ -98,10 +98,10 @@ if __name__ == "__main__":
                 break
             t += SLEEP_FOR
 
-        cPickle.dump((percents, time_labels), open(PICKLE_NAME, 'w'))
+        pickle.dump((percents, time_labels), open(PICKLE_NAME, 'w'))
     else:
         # generate the plots
-        (percents, time_labels) = cPickle.load(open(PICKLE_NAME, 'r'))
+        (percents, time_labels) = pickle.load(open(PICKLE_NAME, 'r'))
 
         f = plt.figure()
 

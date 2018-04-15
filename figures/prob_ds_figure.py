@@ -21,7 +21,7 @@ import numpy as np
 
 
 def generate_keys(num_keys, num_letters):
-    for i in xrange(num_keys):
+    for i in range(num_keys):
         yield "".join(sample(string.ascii_lowercase, num_letters))
 
 
@@ -72,9 +72,9 @@ def run_experiment(exp_name, filename, key_generator, data, sample_freq=3000):
             if i % sample_freq == 0:
                 item[exp_name].append((i, len(item["_tmp"])))
 
-    print "%s summary:" % exp_name
+    print("%s summary:" % exp_name)
     for item in data:
-        print "\t%-24s: %d" % (item["name"], len(item["_tmp"]))
+        print("\t%-24s: %d" % (item["name"], len(item["_tmp"])))
         item.pop("_tmp")
 
     py.figure()
@@ -90,7 +90,7 @@ def plot_experiment(exp_name, data, filename):
         data_ndarray = np.asarray(item[exp_name])
         ymax.append(data_ndarray[-1][1])
         py.plot(data_ndarray[:, 0], data_ndarray[:, 1], label=name,
-                marker=markers.next(), alpha=0.6, markersize=8)
+                marker=next(markers), alpha=0.6, markersize=8)
     py.legend(loc="best", fontsize='medium')
     py.xlabel("Items Added")
     py.ylabel("Size of set")
@@ -101,7 +101,7 @@ def plot_experiment(exp_name, data, filename):
 
 
 if __name__ == "__main__":
-    run_experiment("Unique Items", "unique", xrange(100000), methods)
+    run_experiment("Unique Items", "unique", range(100000), methods)
     run_experiment(
         "60000 elements with duplicates",
         "dup",

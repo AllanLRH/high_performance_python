@@ -3,15 +3,15 @@ import ctypes
 from contextlib import contextmanager
 from progressbar import ProgressBar, ETA, Bar, Percentage
 
-import cPickle
+import pickle
 from pprint import pprint
 
-from morriscounter import MorrisCounter
-from llregister import LLRegister
-from ll import LL
-from superll import SuperLL
+from .morriscounter import MorrisCounter
+from .llregister import LLRegister
+from .ll import LL
+from .superll import SuperLL
 from countmemaybe import HyperLogLog, KMinValues
-from scalingbloomfilter import ScalingBloomFilter
+from .scalingbloomfilter import ScalingBloomFilter
 
 methods = [
     {
@@ -53,7 +53,7 @@ def TimerBlock(name):
         yield t
     finally:
         t.value = time.time() - start
-        print "[%s] took %s seconds" % (name, t.value)
+        print("[%s] took %s seconds" % (name, t.value))
 
 
 def wikireader(filename, buffering=1 << 10):
@@ -67,14 +67,14 @@ def wikireader(filename, buffering=1 << 10):
 if __name__ == "__main__":
     filename = "/export/bbq1/micha/wiki_data/enwiki-latest-pages-articles.tokens"
 
-    print "baseline reading measurement"
+    print("baseline reading measurement")
     with TimerBlock("Iterate File") as baseline:
         tmp = 0
         for line in wikireader(filename):
             tmp += len(line)
 
     for method in methods:
-        print method['name']
+        print(method['name'])
         obj = method['obj']
         with TimerBlock("Iterate File") as bench:
             for line in wikireader(filename):
@@ -83,4 +83,4 @@ if __name__ == "__main__":
         method['estimate'] = len(obj)
 
     pprint(methods)
-    cPickle.dump(methods, open("_benchmark.pkl", "w+"))
+    pickle.dump(methods, open("_benchmark.pkl", "w+"))

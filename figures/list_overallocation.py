@@ -5,10 +5,10 @@ import pylab as py
 def overalloc_dict():
     o = list_overalloc()
     i = 1
-    s, e, _ = o.next()
+    s, e, _ = next(o)
     while True:
         if i > e:
-            s, e, _ = o.next()
+            s, e, _ = next(o)
         yield e - i
         i += 1
 
@@ -22,7 +22,7 @@ def list_overalloc():
 
 if __name__ == "__main__":
     overalloc = lambda N: (N >> 3) + (3 if N < 9 else 6)
-    py.scatter(range(1, 10000), list(islice(overalloc_dict(), 10000 - 1)))
+    py.scatter(list(range(1, 10000)), list(islice(overalloc_dict(), 10000 - 1)))
 
     py.xlim(0, 10000 - 1)
     py.ylim(0, 1300)

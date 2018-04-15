@@ -47,4 +47,4 @@ if __name__ == "__main__":
             "http://127.0.0.1:8080/add?name=asyncio&delay={}&".format(delay),
             num_iter))
     end = time.time()
-    print("{} {}".format(result, end - start))
+    print(("{} {}".format(result, end - start)))

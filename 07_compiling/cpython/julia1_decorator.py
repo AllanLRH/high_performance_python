@@ -13,7 +13,7 @@ def show_greyscale(output_raw, width, height, max_iterations):
     # convert our output to PIL-compatible input
     # scale to [0...255]
     max_iterations = float(max(output_raw))
-    print max_iterations
+    print(max_iterations)
     scale_factor = float(max_iterations)
     scaled = [int(o / scale_factor * 255) for o in output_raw]
     output = array.array('B', scaled)  # array of unsigned ints
@@ -50,7 +50,7 @@ def timefn(fn):
         t1 = time.time()
         result = fn(*args, **kwargs)
         t2 = time.time()
-        print (fn.func_name + " took " + str(t2 - t1) + " seconds")
+        print((fn.__name__ + " took " + str(t2 - t1) + " seconds"))
         return result
     return measure_time
 
@@ -95,13 +95,13 @@ def calc_pure_python(draw_output, desired_width, max_iterations):
             zs.append(complex(xcoord, ycoord))
             cs.append(complex(c_real, c_imag))
 
-    print "Length of x:", len(x)
-    print "Total elements:", len(zs)
+    print("Length of x:", len(x))
+    print("Total elements:", len(zs))
     start_time = time.time()
     output = calculate_z_serial_purepython(max_iterations, zs, cs)
     end_time = time.time()
     secs = end_time - start_time
-    print calculate_z_serial_purepython.func_name + " took", secs, "seconds"
+    print(calculate_z_serial_purepython.__name__ + " took", secs, "seconds")
 
     if draw_output:
         # set width and height to the generated pixel counts, rather than the
@@ -112,7 +112,7 @@ def calc_pure_python(draw_output, desired_width, max_iterations):
         #show_greyscale(output, width, height, max_iterations)
 
     validation_sum = sum(output)
-    print "Total sum of elements (for validation):", validation_sum
+    print("Total sum of elements (for validation):", validation_sum)
 
 
 # Calculate the Julia set using a pure Python solution with

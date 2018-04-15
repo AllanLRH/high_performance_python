@@ -15,13 +15,13 @@ def plot(kmv):
     py.axvline(x=(kmv.data[-2] / float(2 ** 32 - 1)), c='r')
     py.gca().get_yaxis().set_visible(False)
     py.gca().get_xaxis().set_ticklabels([])
-    py.gca().get_xaxis().set_ticks([x / 10. for x in xrange(11)])
+    py.gca().get_xaxis().set_ticks([x / 10. for x in range(11)])
 
 if __name__ == "__main__":
     k = 20
     num_panels = 20
     kmv = KMinValues(k)
-    for i in xrange(k * num_panels + 1):
+    for i in range(k * num_panels + 1):
         if i % k == 0 and i != 0:
             py.subplot(num_panels, 1, i // k)
             if i == k:
@@ -30,8 +30,8 @@ if __name__ == "__main__":
             py.xlim((0, 1))
         kmv.add(str(i))
 
-    py.gca().get_xaxis().set_ticks([x / 10. for x in xrange(11)])
-    py.gca().get_xaxis().set_ticklabels([x / 10. for x in xrange(11)])
+    py.gca().get_xaxis().set_ticks([x / 10. for x in range(11)])
+    py.gca().get_xaxis().set_ticklabels([x / 10. for x in range(11)])
 
     py.tight_layout()
     py.savefig("images/kmv.png")

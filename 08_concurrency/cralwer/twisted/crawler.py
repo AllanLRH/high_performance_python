@@ -20,8 +20,8 @@ def main_task(reactor):
         response_sum += len(data)
 
     def task_finished(*args, **kwargs):
-        print args, kwargs
-        print "done?"
+        print(args, kwargs)
+        print("done?")
 
     def fetch_urls():
         delay = 100
@@ -33,7 +33,7 @@ def main_task(reactor):
     urls = fetch_urls()
 
     return (defer.DeferredList([coop.coiterate(urls)
-                                for _ in xrange(BATCH_SIZE)])
+                                for _ in range(BATCH_SIZE)])
             .addCallback(task_finished))
 
 if __name__ == "__main__":
@@ -41,4 +41,4 @@ if __name__ == "__main__":
     start = time.time()
     task.react(main_task)
     end = time.time()
-    print("{} {}".format(response_sum, end - start))
+    print(("{} {}".format(response_sum, end - start)))

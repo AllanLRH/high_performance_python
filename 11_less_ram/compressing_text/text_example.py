@@ -20,6 +20,6 @@ def read_words(filename):
                 for item in items:
                     yield item
     except UnicodeDecodeError:
-        print "UnicodeDecodeError for {} near line {} and word {}".format(filename, line_nbr, line)
+        print("UnicodeDecodeError for {} near line {} and word {}".format(filename, line_nbr, line))
 
 readers = read_words(SUMMARISED_FILE)

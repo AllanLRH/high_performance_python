@@ -12,10 +12,10 @@ xs = np.random.uniform(size=nbr_samples)
 ys = np.random.uniform(size=nbr_samples)
 t1 = time.time()
 nbr_in_circle = y_is_in_circle(xs, ys)
-print "Took {}s".format(time.time() - t1)
+print("Took {}s".format(time.time() - t1))
 nbr_in_circle = float(np.sum(nbr_in_circle))
-print nbr_in_circle
+print(nbr_in_circle)
 
 pi_estimate = nbr_in_circle / nbr_samples * 4
-print pi_estimate
-print np.pi
+print(pi_estimate)
+print(np.pi)

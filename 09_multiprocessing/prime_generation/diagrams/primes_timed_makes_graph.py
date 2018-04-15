@@ -1,6 +1,6 @@
 import math
 import time
-import cPickle
+import pickle
 import argparse
 import matplotlib.pyplot as plt
 import numpy as np
@@ -9,7 +9,7 @@ import numpy as np
 def check_prime(N):
     sqrtN = math.sqrt(N)
     Nf = float(N)
-    for i in xrange(2, int(sqrtN) + 1):
+    for i in range(2, int(sqrtN) + 1):
         if (Nf / i).is_integer():
             return False
     return True
@@ -35,11 +35,11 @@ if __name__ == "__main__":
         # good range
         lower_range = 10001
         upper_range = 1000000
-        numbers_to_test = np.array(range(lower_range, upper_range, 10))
+        numbers_to_test = np.array(list(range(lower_range, upper_range, 10)))
         for possible_prime in numbers_to_test:
             min_time = 9999
             # calculate several times so we record the fastest time
-            for loop in xrange(20):
+            for loop in range(20):
                 t1 = time.time()
                 is_prime = check_prime(possible_prime)
                 t2 = time.time()
@@ -49,13 +49,13 @@ if __name__ == "__main__":
             if is_prime:
                 primes.append(possible_prime)
             are_primes.append(is_prime)
-        print primes[:10], primes[-10:]
+        print(primes[:10], primes[-10:])
         are_primes = np.array(are_primes)
         times = np.array(times)
-        cPickle.dump(
+        pickle.dump(
             (numbers_to_test, are_primes, times), open(filename, 'wb'))
     else:
-        numbers_to_test, are_primes, times = cPickle.load(open(filename))
+        numbers_to_test, are_primes, times = pickle.load(open(filename))
         # plot the two items three times, the last doesn't have a label (but is
         # there to over-plot the Not Prime result), so the Legend items are
         # displayed in the correct sequence

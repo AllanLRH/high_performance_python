@@ -24,7 +24,7 @@ def memory_profile(function, *args, **kwargs):
 
 
 if __name__ == "__main__":
-    numbers = xrange(10000000)
+    numbers = range(10000000)
     setup = "from __main__ import (numbers, " \
             "divisible_by_three_list, divisible_by_three_iterator)"
     iterations = 5
@@ -35,12 +35,12 @@ if __name__ == "__main__":
         number=iterations,
     )
     m = memory_profile(divisible_by_three_list, numbers)
-    print "divisible_by_three_list with {} entries took " \
+    print("divisible_by_three_list with {} entries took " \
         "{} seconds and used {} MB".format(
             len(numbers),
             t / iterations,
             m,
-        )
+        ))
 
     t = timeit.timeit(
         stmt="divisible_by_three_iterator(numbers)",
@@ -48,9 +48,9 @@ if __name__ == "__main__":
         number=iterations,
     )
     m = memory_profile(divisible_by_three_iterator, numbers)
-    print "divisible_by_three_iterator with {} entries took " \
+    print("divisible_by_three_iterator with {} entries took " \
         "{} seconds and used {} MB".format(
             len(numbers),
             t / iterations,
             m,
-        )
+        ))

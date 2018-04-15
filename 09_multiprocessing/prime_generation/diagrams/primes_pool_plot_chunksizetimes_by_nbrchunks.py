@@ -1,7 +1,7 @@
 import math
 import argparse
 import random
-import cPickle
+import pickle
 import time
 import multiprocessing
 from matplotlib import pyplot as plt
@@ -10,7 +10,7 @@ from matplotlib import pyplot as plt
 def check_prime(n):
     if n % 2 == 0:
         return False
-    for i in xrange(3, int(math.sqrt(n)) + 1, 2):
+    for i in range(3, int(math.sqrt(n)) + 1, 2):
         if n % i == 0:
             return False
     return True
@@ -30,10 +30,10 @@ if __name__ == "__main__":
         help='randomly shuffle the job sequence')
     args = parser.parse_args()
 
-    number_range = range(100000000, 100100000)  # B
+    number_range = list(range(100000000, 100100000))  # B
     shuffle_in_filename = ""
     if args.shuffle:
-        print "Shuffling..."
+        print("Shuffling...")
         shuffle_in_filename = "_shuffled"
         random.shuffle(number_range)
 
@@ -49,24 +49,24 @@ if __name__ == "__main__":
         pool = multiprocessing.Pool(processes=NBR_PROCESSES)
         time_per_chunksize = []
         # plot the main effect:
-        nbr_chunks_per_trial = range(1, 33)
+        nbr_chunks_per_trial = list(range(1, 33))
 
         for nbr_chunks in nbr_chunks_per_trial:
             min_time = 99999999
             # run a number of trials and pick the fastest to avoid jitter
-            for trial in xrange(10):
+            for trial in range(10):
                 t1 = time.time()
                 chunksize = int(float(len(number_range)) / nbr_chunks)
-                print nbr_chunks, chunksize
+                print(nbr_chunks, chunksize)
 
                 pool.map(check_prime, number_range, chunksize=chunksize)
                 t2 = time.time()
                 min_time = min(t2 - t1, min_time)
             time_per_chunksize.append(min_time)
-        cPickle.dump((nbr_chunks_per_trial, time_per_chunksize,
+        pickle.dump((nbr_chunks_per_trial, time_per_chunksize,
                       NBR_PROCESSES, number_range), open(filename, 'wb'))
     else:
-        nbr_chunks_per_trial, time_per_chunksize, NBR_PROCESSES, number_range = cPickle.load(
+        nbr_chunks_per_trial, time_per_chunksize, NBR_PROCESSES, number_range = pickle.load(
             open(filename))
         # make a figure, show the experimental timings
         f = plt.figure(1)

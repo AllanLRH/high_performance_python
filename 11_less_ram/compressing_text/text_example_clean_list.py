@@ -19,13 +19,13 @@ def read_words(filename):
                 for item in items:
                     yield item
     except UnicodeDecodeError:
-        print "UnicodeDecodeError for {} near line {} and word {}".format(filename, line_nbr, line)
+        print("UnicodeDecodeError for {} near line {} and word {}".format(filename, line_nbr, line))
 
 readers = itertools.chain(*(read_words(lf) for lf in LONG_FILES))
 
 if __name__ == "__main__":
     words_set = set(readers)
-    print "Summarising input files into one output set of {} words".format(len(words_set))
+    print("Summarising input files into one output set of {} words".format(len(words_set)))
     with codecs.open(SUMMARISED_FILE, 'w', 'Windows-1252') as f:
         for word in words_set:
             f.write(word + "\n")

@@ -24,7 +24,7 @@ if __name__ == "__main__":
     data_list = []
     h1 = HLL()
     h = countmemaybe.HyperLogLog()
-    for i in xrange(100000):
+    for i in range(100000):
         item = "seee%seeeed234rsdaf" % i
         x = h._hash(item)
         h1.add(x)

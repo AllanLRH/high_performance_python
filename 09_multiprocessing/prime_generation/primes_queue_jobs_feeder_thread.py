@@ -18,7 +18,7 @@ def check_prime(possible_primes_queue, definite_primes_queue):
         else:
             if n % 2 == 0:
                 continue
-            for i in xrange(3, int(math.sqrt(n)) + 1, 2):
+            for i in range(3, int(math.sqrt(n)) + 1, 2):
                 if n % i == 0:
                     break
             else:
@@ -26,13 +26,13 @@ def check_prime(possible_primes_queue, definite_primes_queue):
 
 
 def feed_new_jobs(number_range, possible_primes_queue, nbr_poison_pills):
-    print "ADDING JOBS TO THE QUEUE"
+    print("ADDING JOBS TO THE QUEUE")
     for possible_prime in number_range:
         possible_primes_queue.put(possible_prime)
     # add poison pills to stop the remote workers
-    for n in xrange(nbr_poison_pills):
+    for n in range(nbr_poison_pills):
         possible_primes_queue.put(FLAG_ALL_DONE)
-    print "ALL JOBS ADDED TO THE QUEUE"
+    print("ALL JOBS ADDED TO THE QUEUE")
 
 
 if __name__ == "__main__":
@@ -57,7 +57,7 @@ if __name__ == "__main__":
 
     t1 = time.time()
     # number_range = xrange(100000000, 100010000)  # A
-    number_range = xrange(100000000, 100100000)  # B
+    number_range = range(100000000, 100100000)  # B
     # number_range = xrange(100000000, 101000000)  # C
     # number_range = xrange(1000000000, 1000100000)  # D
     # number_range = xrange(100000000000, 100000100000)  # E
@@ -67,13 +67,13 @@ if __name__ == "__main__":
         number_range, possible_primes_queue, NBR_PROCESSES))
     thrd.start()
 
-    print "NOW WAITING FOR RESULTS..."
+    print("NOW WAITING FOR RESULTS...")
     processors_indicating_they_have_finished = 0
     while True:
         # block whilst waiting for results
         new_result = definite_primes_queue.get()
         if new_result == FLAG_WORKER_FINISHED_PROCESSING:
-            print "WORKER {} HAS JUST FINISHED".format(processors_indicating_they_have_finished)
+            print("WORKER {} HAS JUST FINISHED".format(processors_indicating_they_have_finished))
             processors_indicating_they_have_finished += 1
             if processors_indicating_they_have_finished == NBR_PROCESSES:
                 break
@@ -81,5 +81,5 @@ if __name__ == "__main__":
             primes.append(new_result)
     assert processors_indicating_they_have_finished == NBR_PROCESSES
 
-    print "Took:", time.time() - t1
-    print len(primes), primes[:10], primes[-10:]
+    print("Took:", time.time() - t1)
+    print(len(primes), primes[:10], primes[-10:])

@@ -15,7 +15,7 @@ import ujson as json
 def is_prime(number):
     if number % 2 == 0:
         return False
-    for i in xrange(3, int(sqrt(number)) + 1, 2):
+    for i in range(3, int(sqrt(number)) + 1, 2):
         if number % i == 0:
             return False
     return True
@@ -25,10 +25,10 @@ def is_prime(number):
 def write_message(topic, data, writer):
     response = yield gen.Task(writer.pub, topic, data)
     if isinstance(response, nsq.Error):
-        print "Error with Message: {}: {}".format(data, response)
+        print("Error with Message: {}: {}".format(data, response))
         yield write_message(data, writer)
     else:
-        print "Published Message: ", data
+        print("Published Message: ", data)
 
 
 def calculate_prime(message, writer):

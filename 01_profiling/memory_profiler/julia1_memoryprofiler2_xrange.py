@@ -15,7 +15,7 @@ def calculate_z_serial_purepython(maxiter, zs, cs):
         output = [0] * len(zs)
     time.sleep(1)
     with profile.timestamp("calculate_output"):
-        for i in xrange(len(zs)):
+        for i in range(len(zs)):
             n = 0
             z = zs[i]
             c = cs[i]
@@ -55,13 +55,13 @@ def calc_pure_python(draw_output, desired_width, max_iterations):
             zs.append(complex(xcoord, ycoord))
             cs.append(complex(c_real, c_imag))
 
-    print "Length of x:", len(x)
-    print "Total elements:", len(zs)
+    print("Length of x:", len(x))
+    print("Total elements:", len(zs))
     start_time = time.time()
     output = calculate_z_serial_purepython(max_iterations, zs, cs)
     end_time = time.time()
     secs = end_time - start_time
-    print calculate_z_serial_purepython.func_name + " took", secs, "seconds"
+    print(calculate_z_serial_purepython.__name__ + " took", secs, "seconds")
 
     # this sum is expected for 1000^2 grid with 300 iterations
     assert sum(output) == 33219980

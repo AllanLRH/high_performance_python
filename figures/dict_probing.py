@@ -41,7 +41,7 @@ def table():
         indexes = modified_probe(h, dict_length - 1)
         data["pert"][h] = [v for i, v in cover_space(indexes, dict_length)]
 
-    print data
+    print(data)
 
 
 def plot():
@@ -51,13 +51,13 @@ def plot():
     indexes = modified_probe(hash(key), dict_length - 1)
     index_values = list(cover_space(indexes, dict_length))
 
-    print "--"
+    print("--")
     color_data = np.zeros((dict_length, 1)) - 1
     for i, v in index_values:
         if color_data[v, 0] == -1:
-            print i, v
+            print(i, v)
             color_data[v, 0] = i
-    print color_data.T
+    print(color_data.T)
     py.imshow(color_data.T, interpolation='None', aspect='auto')
 
     axis = py.gca()

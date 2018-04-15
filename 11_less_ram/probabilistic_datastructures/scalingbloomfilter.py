@@ -1,4 +1,4 @@
-from bloomfilter import BloomFilter
+from .bloomfilter import BloomFilter
 
 
 class ScalingBloomFilter(object):

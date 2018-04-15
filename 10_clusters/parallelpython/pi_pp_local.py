@@ -10,7 +10,7 @@ NBR_ESTIMATES = 1e8
 
 
 def calculate_pi(nbr_estimates):
-    steps = xrange(int(nbr_estimates))
+    steps = range(int(nbr_estimates))
     nbr_trials_in_unit_circle = 0
     for step in steps:
         x = random.uniform(0, 1)
@@ -24,7 +24,7 @@ def calculate_pi(nbr_estimates):
 if __name__ == "__main__":
     NBR_PROCESSES = 4
     job_server = pp.Server(ncpus=NBR_PROCESSES)
-    print "Starting pp with", job_server.get_ncpus(), "workers"
+    print("Starting pp with", job_server.get_ncpus(), "workers")
     nbr_trials_per_process = [NBR_ESTIMATES] * NBR_PROCESSES
     t1 = time.time()
     jobs = []
@@ -33,7 +33,7 @@ if __name__ == "__main__":
         jobs.append(job)
     # each job blocks until the result is ready
     nbr_in_unit_circles = [job() for job in jobs]
-    print "Amount of work:", sum(nbr_trials_per_process)
-    print sum(nbr_in_unit_circles) * 4 / NBR_ESTIMATES / NBR_PROCESSES
-    print calculate_pi.func_name
-    print "Delta:", time.time() - t1
+    print("Amount of work:", sum(nbr_trials_per_process))
+    print(sum(nbr_in_unit_circles) * 4 / NBR_ESTIMATES / NBR_PROCESSES)
+    print(calculate_pi.__name__)
+    print("Delta:", time.time() - t1)

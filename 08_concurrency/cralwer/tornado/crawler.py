@@ -11,7 +11,7 @@ AsyncHTTPClient.configure(
 
 
 def generate_urls(base_url, num_urls):
-    for i in xrange(num_urls):
+    for i in range(num_urls):
         yield base_url + "".join(random.sample(string.ascii_lowercase, 10))
 
 
@@ -36,4 +36,4 @@ if __name__ == "__main__":
     start = time.time()
     result = _ioloop.run_sync(run_func)
     end = time.time()
-    print result, (end - start)
+    print(result, (end - start))

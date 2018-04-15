@@ -39,7 +39,7 @@ all_times_faster = [times_primes_pool_per_number2,
 
 if args.slow:
     png_filename = "multiprocessing_plot_prime_validation_times_slower_results.png"
-    print "Writing to", png_filename
+    print("Writing to", png_filename)
     symbols = ["o", "v", "s", "^", "*", "+", "x"]
     linestyles = ["-", "--", "-.", ":", "-"]
     all_times = all_times_slower
@@ -60,13 +60,13 @@ plt.clf()
 
 for times, label, symbol, linestyle in zip(all_times, method_labels, symbols, linestyles):
     #plt.scatter(range(len(labels)), times, label=label, marker=symbol)
-    plt.plot(range(len(labels)), times, label=label,
+    plt.plot(list(range(len(labels))), times, label=label,
              marker=symbol, linestyle=linestyle)
 
 plt.title(title)
 plt.legend(loc="upper left")
 plt.ylabel("Time in seconds (smaller is better)")
-plt.xticks(range(len(labels)), labels, rotation=45, ha="right")
+plt.xticks(list(range(len(labels))), labels, rotation=45, ha="right")
 plt.xlim(xmin=-0.1, xmax=len(labels) - 0.9)
 plt.ylim(ymin=-0.1, ymax=ymax)
 plt.tight_layout()

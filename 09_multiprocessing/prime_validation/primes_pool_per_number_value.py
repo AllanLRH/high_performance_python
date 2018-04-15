@@ -10,7 +10,7 @@ SERIAL_CHECK_CUTOFF = 21
 CHECK_EVERY = 1000
 FLAG_CLEAR = b'0'
 FLAG_SET = b'1'
-print "CHECK_EVERY", CHECK_EVERY
+print("CHECK_EVERY", CHECK_EVERY)
 
 
 def check_prime_in_range(xxx_todo_changeme):
@@ -19,7 +19,7 @@ def check_prime_in_range(xxx_todo_changeme):
         return False
     assert from_i % 2 != 0
     check_every = CHECK_EVERY
-    for i in xrange(from_i, int(to_i), 2):
+    for i in range(from_i, int(to_i), 2):
         check_every -= 1
         if not check_every:
             if value.value == FLAG_SET:
@@ -45,7 +45,7 @@ def check_prime(n, pool, nbr_processes):
     to_i = int(math.sqrt(n)) + 1
 
     ranges_to_check = create_range.create(from_i, to_i, nbr_processes)
-    ranges_to_check = zip(len(ranges_to_check) * [n], ranges_to_check)
+    ranges_to_check = list(zip(len(ranges_to_check) * [n], ranges_to_check))
     assert len(ranges_to_check) == nbr_processes
     results = pool.map(check_prime_in_range, ranges_to_check)
     if False in results:
@@ -57,7 +57,7 @@ if __name__ == "__main__":
     NBR_PROCESSES = 4
     value = multiprocessing.RawValue(b'c', FLAG_CLEAR)  # 1 byte character
     pool = Pool(processes=NBR_PROCESSES)
-    print "Testing with {} processes".format(NBR_PROCESSES)
+    print("Testing with {} processes".format(NBR_PROCESSES))
     for label, nbr in [("trivial non-prime", 112272535095295),
                        ("expensive non-prime18_1", 100109100129100369),
                        ("expensive non-prime18_2", 100109100129101027),
@@ -74,5 +74,5 @@ if __name__ == "__main__":
             repeat=20,
             number=1,
             setup="from __main__ import pool, check_prime")
-        print "check_prime returns:", check_prime(nbr, pool, NBR_PROCESSES)
-        print "{:19} ({}) {: 3.6f}s".format(label, nbr, min(time_costs))
+        print("check_prime returns:", check_prime(nbr, pool, NBR_PROCESSES))
+        print("{:19} ({}) {: 3.6f}s".format(label, nbr, min(time_costs)))

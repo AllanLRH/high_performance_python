@@ -14,7 +14,7 @@ SERIAL_CHECK_CUTOFF = 21
 CHECK_EVERY = 1000
 FLAG_CLEAR = b'0'
 FLAG_SET = b'1'
-print "CHECK_EVERY", CHECK_EVERY
+print("CHECK_EVERY", CHECK_EVERY)
 
 sh_mem = mmap.mmap(-1, 1)  # memory map 1 byte as a flag
 
@@ -24,8 +24,8 @@ def check_prime_in_range(xxx_todo_changeme):
     if n % 2 == 0:
         return False
     assert from_i % 2 != 0
-    for outer_counter in xrange(from_i, int(to_i), CHECK_EVERY):
-        for i in xrange(outer_counter, outer_counter + CHECK_EVERY, 2):
+    for outer_counter in range(from_i, int(to_i), CHECK_EVERY):
+        for i in range(outer_counter, outer_counter + CHECK_EVERY, 2):
             if n % i == 0:
                 sh_mem.seek(0)
                 sh_mem.write_byte(FLAG_SET)
@@ -54,7 +54,7 @@ def check_prime(n, pool, nbr_processes):
     to_i = int(math.sqrt(n)) + 1
 
     ranges_to_check = create_range.create(from_i, to_i, nbr_processes)
-    ranges_to_check = zip(len(ranges_to_check) * [n], ranges_to_check)
+    ranges_to_check = list(zip(len(ranges_to_check) * [n], ranges_to_check))
     assert len(ranges_to_check) == nbr_processes
     results = pool.map(check_prime_in_range, ranges_to_check)
     if False in results:
@@ -69,7 +69,7 @@ if __name__ == "__main__":
     shared_counter = multiprocessing.Value(b'i', 0)  # counter
 
     pool = Pool(processes=NBR_PROCESSES)
-    print "Testing with {} processes".format(NBR_PROCESSES)
+    print("Testing with {} processes".format(NBR_PROCESSES))
     for label, nbr in [("trivial non-prime", 112272535095295),
                        ("expensive non-prime18_1", 100109100129100369),
                        ("expensive non-prime18_2", 100109100129101027),
@@ -82,5 +82,5 @@ if __name__ == "__main__":
         # time_costs = timeit.repeat(stmt="check_prime({}, pool, {})".format(nbr, NBR_PROCESSES), repeat=20, number=1,
         # setup="from __main__ import pool, check_prime")
         shared_counter.value = 0
-        print "check_prime reports:", check_prime(nbr, pool, NBR_PROCESSES), shared_counter.value
+        print("check_prime reports:", check_prime(nbr, pool, NBR_PROCESSES), shared_counter.value)
         # print "{:19} ({}) {: 3.6f}s".format(label, nbr, min(time_costs))

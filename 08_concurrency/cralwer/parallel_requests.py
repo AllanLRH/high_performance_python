@@ -3,7 +3,7 @@ monkey.patch_socket()
 
 import gevent
 from gevent.coros import Semaphore
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import string
 import random
 from contextlib import closing
@@ -18,16 +18,16 @@ linestyles = cycle(['-', ':', '--', '-.'])
 
 
 def generate_urls(base_url, num_urls):
-    for i in xrange(num_urls):
+    for i in range(num_urls):
         yield base_url + "".join(random.sample(string.ascii_lowercase, 10))
 
 
 def download(url, semaphore):
     try:
-        with semaphore, closing(urllib2.urlopen(url)) as data:
+        with semaphore, closing(urllib.request.urlopen(url)) as data:
             return data.read()
     except Exception as e:
-        print "retrying: ", e
+        print("retrying: ", e)
         return download(url, semaphore)
 
 
@@ -53,26 +53,26 @@ if __name__ == "__main__":
         num_iter = 500
 
         data = {}
-        for delay in xrange(50, 1000, 250):
+        for delay in range(50, 1000, 250):
             base_url = "http://127.0.0.1:8080/add?name=concurrency_test&delay={}&".format(
                 delay)
             data[delay] = []
-            for parallel_requests in xrange(1, num_iter, 25):
+            for parallel_requests in range(1, num_iter, 25):
                 start = time.time()
                 result = run_experiment(base_url, num_iter, parallel_requests)
                 t = time.time() - start
-                print("{},{},{}".format(delay, parallel_requests, t))
+                print(("{},{},{}".format(delay, parallel_requests, t)))
                 data[delay].append((parallel_requests, t))
 
         json.dump(data, open("parallel_requests.json", "w+"))
     finally:
         py.figure()
-        for delay, values in data.iteritems():
+        for delay, values in data.items():
             values = np.asarray(values)
             py.plot(values[:, 0], values[:, 1],
                     label="{}s request time".format(delay),
-                    linestyle=linestyles.next(),
-                    marker=markers.next(),
+                    linestyle=next(linestyles),
+                    marker=next(markers),
                     linewidth=4,
                     )
 

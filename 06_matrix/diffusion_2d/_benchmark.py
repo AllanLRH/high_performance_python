@@ -15,18 +15,18 @@ def run_experiment(experiment, iterations, label, baseline=None):
     try:
         t = experiment.run_experiment(nruns)
         extra_runs = max(int(30 / t) - 1, 2)
-        for i in xrange(extra_runs):
+        for i in range(extra_runs):
             test = experiment.run_experiment(nruns)
             t = min(t, test)
     except Exception as e:
-        print "Could not run: %s: %s" % (label, e)
+        print("Could not run: %s: %s" % (label, e))
         raise
 
     speedup_label = ''
     if baseline:
         speedup_label = "[%0.2fx speedup]" % (baseline / t)
     _format = (label, t, t / float(nruns), speedup_label)
-    print "%s: %0.2fs (%es per iteration)%s" % _format
+    print("%s: %0.2fs (%es per iteration)%s" % _format)
     return t, (baseline or 0) / t
 
 
@@ -50,7 +50,7 @@ if __name__ == "__main__":
     data = defaultdict(list)
     for grid_width in sizes:
         set_grid_shape(grid_width)
-        print "Grid size: ", diffusion_python.grid_shape
+        print("Grid size: ", diffusion_python.grid_shape)
         baseline, _ = run_experiment(diffusion_python, nruns, "Pure Python")
         data["python"].append((baseline, 0))
         data['python+memory'].append(
@@ -85,11 +85,11 @@ if __name__ == "__main__":
                 nruns,
                 "numpy+memory+scipy",
                 baseline))
-        print ""
+        print("")
 
-    print '[width="40%",frame="topbot",options="header"]\n|======================'
-    print '|Method 2+|' + " 2+| ".join("%dx%d" % (s, s) for s in sizes) + '|'
-    print '| |' + "|".join("runtime | speedup" for s in sizes) + '|'
-    for method, data in data.iteritems():
-        print "|" + method + "|" + "|".join('%0.2fs | %0.2fx' % d for d in data) + "|"
-    print "|======================"
+    print('[width="40%",frame="topbot",options="header"]\n|======================')
+    print('|Method 2+|' + " 2+| ".join("%dx%d" % (s, s) for s in sizes) + '|')
+    print('| |' + "|".join("runtime | speedup" for s in sizes) + '|')
+    for method, data in data.items():
+        print("|" + method + "|" + "|".join('%0.2fs | %0.2fx' % d for d in data) + "|")
+    print("|======================")

@@ -14,17 +14,17 @@ def y_is_in_circle(x, y):
 
 
 nbr_samples = int(1e7)
-print "Using:", nbr_samples
+print("Using:", nbr_samples)
 xs = np.random.random_sample(size=nbr_samples)
 ys = np.random.random_sample(size=nbr_samples)
 t1 = time.time()
 nbr_in_circle = y_is_in_circle(xs, ys)
-print "Took {}s".format(time.time() - t1)
-print nbr_in_circle[:10]
+print("Took {}s".format(time.time() - t1))
+print(nbr_in_circle[:10])
 #nbr_in_circle_sum = float(sum(nbr_in_circle))
 nbr_in_circle_sum = np.sum(nbr_in_circle, dtype=np.int64)
-print nbr_in_circle_sum
+print(nbr_in_circle_sum)
 
 pi_estimate = float(nbr_in_circle_sum) / nbr_samples * 4
-print pi_estimate
-print np.pi
+print(pi_estimate)
+print(np.pi)

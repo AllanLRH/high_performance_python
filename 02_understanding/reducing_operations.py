@@ -19,40 +19,40 @@ def search_slow(haystack, needle):
 if __name__ == "__main__":
     setup = 'from __main__ import (haystack, needle, search_fast, search_slow)'
     iterations = 10000
-    haystack = range(1000)
+    haystack = list(range(1000))
 
     needle = 5
-    print "Testing search speed with {} items and needle " \
-        "close to the head of the list".format(len(haystack))
+    print("Testing search speed with {} items and needle " \
+        "close to the head of the list".format(len(haystack)))
 
     t = timeit.timeit(
         stmt='search_fast(haystack, needle)',
         setup=setup,
         number=iterations
     )
-    print "search_fast time: {:.5e}".format(t / float(iterations))
+    print("search_fast time: {:.5e}".format(t / float(iterations)))
 
     t = timeit.timeit(
         stmt='search_slow(haystack, needle)',
         setup=setup,
         number=iterations
     )
-    print "search_slow time: {:.5e}".format(t / float(iterations))
+    print("search_slow time: {:.5e}".format(t / float(iterations)))
 
     needle = len(haystack) - 10
-    print "Testing search speed with {} items and needle " \
-        "close to the tail of the list".format(len(haystack))
+    print("Testing search speed with {} items and needle " \
+        "close to the tail of the list".format(len(haystack)))
 
     t = timeit.timeit(
         stmt='search_fast(haystack, needle)',
         setup=setup,
         number=iterations
     )
-    print "search_fast time: {:.5e}".format(t / float(iterations))
+    print("search_fast time: {:.5e}".format(t / float(iterations)))
 
     t = timeit.timeit(
         stmt='search_slow(haystack, needle)',
         setup=setup,
         number=iterations
     )
-    print "search_slow time: {:.5e}".format(t / float(iterations))
+    print("search_slow time: {:.5e}".format(t / float(iterations)))

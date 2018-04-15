@@ -35,8 +35,8 @@ def worker_fn(idx):
     # inside the subprocess print the PID and id of the array
     # to check we don't have a copy
     if idx % 1000 == 0:
-        print " {}: with idx {}\n  id of local_nparray_in_process is {} in PID {}"\
-            .format(worker_fn.__name__, idx, id(main_nparray), os.getpid())
+        print(" {}: with idx {}\n  id of local_nparray_in_process is {} in PID {}"\
+            .format(worker_fn.__name__, idx, id(main_nparray), os.getpid()))
     # we can do any work on the array, here we set every item in this row to
     # have the value of the process id for this process
     main_nparray[idx, :] = os.getpid()
@@ -54,19 +54,19 @@ if __name__ == '__main__':
     main_nparray = main_nparray.reshape(SIZE_A, SIZE_B)
     # Assert no copy was made
     assert main_nparray.base.base is shared_array_base
-    print "Created shared array with {:,} nbytes".format(main_nparray.nbytes)
-    print "Shared array id is {} in PID {}".format(id(main_nparray), os.getpid())
-    print "Starting with an array of 0 values:"
-    print main_nparray
-    print
+    print("Created shared array with {:,} nbytes".format(main_nparray.nbytes))
+    print("Shared array id is {} in PID {}".format(id(main_nparray), os.getpid()))
+    print("Starting with an array of 0 values:")
+    print(main_nparray)
+    print()
 
     # Modify the data via our local numpy array
     main_nparray.fill(DEFAULT_VALUE)
-    print "Original array filled with value {}:".format(DEFAULT_VALUE)
-    print main_nparray
+    print("Original array filled with value {}:".format(DEFAULT_VALUE))
+    print(main_nparray)
 
-    raw_input("Press a key to start workers using multiprocessing...")
-    print
+    input("Press a key to start workers using multiprocessing...")
+    print()
 
     # create a pool of processes that will share the memory block
     # of the global numpy array, share the reference to the underlying
@@ -74,30 +74,30 @@ if __name__ == '__main__':
     pool = multiprocessing.Pool(processes=NBR_OF_PROCESSES)
     # perform a map where each row index is passed as a parameter to the
     # worker_fn
-    pool.map(worker_fn, xrange(SIZE_A))
+    pool.map(worker_fn, range(SIZE_A))
 
-    print
-    print "The default value has been over-written with worker_fn's result:"
-    print main_nparray
-    print
-    print "Verification - extracting unique values from {:,} items\nin the numpy array (this might be slow)...".format(NBR_ITEMS_IN_ARRAY)
+    print()
+    print("The default value has been over-written with worker_fn's result:")
+    print(main_nparray)
+    print()
+    print("Verification - extracting unique values from {:,} items\nin the numpy array (this might be slow)...".format(NBR_ITEMS_IN_ARRAY))
     # main_nparray.flat iterates over the contents of the array, it doesn't
     # make a copy
     counter = Counter(main_nparray.flat)
-    print "Unique values in main_nparray:"
+    print("Unique values in main_nparray:")
     tbl = PrettyTable(["PID", "Count"])
-    for pid, count in counter.items():
+    for pid, count in list(counter.items()):
         tbl.add_row([pid, count])
-    print tbl
+    print(tbl)
 
     total_items_set_in_array = sum(counter.values())
 
     # check that we have set every item in the array away from DEFAULT_VALUE
-    assert DEFAULT_VALUE not in counter.keys()
+    assert DEFAULT_VALUE not in list(counter.keys())
     # check that we have accounted for every item in the array
     assert total_items_set_in_array == NBR_ITEMS_IN_ARRAY
     # check that we have NBR_OF_PROCESSES of unique keys to confirm that every
     # process did some of the work
     assert len(counter) == NBR_OF_PROCESSES
 
-    raw_input("Press a key to exit...")
+    input("Press a key to exit...")

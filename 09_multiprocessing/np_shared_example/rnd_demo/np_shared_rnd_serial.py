@@ -35,8 +35,8 @@ def worker_fn(idx):
     # inside the subprocess print the PID and id of the array
     # to check we don't have a copy
     if idx % 1000 == 0:
-        print " {}: with idx {}\n  id of local_nparray_in_process is {} in PID {}"\
-            .format(worker_fn.__name__, idx, id(main_nparray), os.getpid())
+        print(" {}: with idx {}\n  id of local_nparray_in_process is {} in PID {}"\
+            .format(worker_fn.__name__, idx, id(main_nparray), os.getpid()))
     # we can do any work on the array, here we set every item in this row to
     # have the value of the process id for this process
     main_nparray[idx, :] = os.getpid()
@@ -54,29 +54,29 @@ if __name__ == '__main__':
     main_nparray = main_nparray.reshape(SIZE_A, SIZE_B)
     # Assert no copy was made
     assert main_nparray.base.base is shared_array_base
-    print "Created shared array with {:,} nbytes".format(main_nparray.nbytes)
-    print "Shared array id is {} in PID {}".format(id(main_nparray), os.getpid())
-    print "Starting with an array of 0 values:"
-    print main_nparray
-    print
+    print("Created shared array with {:,} nbytes".format(main_nparray.nbytes))
+    print("Shared array id is {} in PID {}".format(id(main_nparray), os.getpid()))
+    print("Starting with an array of 0 values:")
+    print(main_nparray)
+    print()
 
     # Modify the data via our local numpy array
     main_nparray.fill(DEFAULT_VALUE)
-    print "Original array filled with value {}:".format(DEFAULT_VALUE)
-    print main_nparray
+    print("Original array filled with value {}:".format(DEFAULT_VALUE))
+    print(main_nparray)
 
-    raw_input("Press a key to start workers using multiprocessing...")
-    print
+    input("Press a key to start workers using multiprocessing...")
+    print()
 
     import time
     t1 = time.time()
-    for idx in xrange(SIZE_A):
+    for idx in range(SIZE_A):
         main_nparray[idx, :] = np.random.random(main_nparray.shape[1])
     t2 = time.time()
-    print "Took:", t2 - t1
+    print("Took:", t2 - t1)
 
-    print
-    print "The default value has been over-written with worker_fn's result:"
-    print main_nparray
-    print
-    raw_input("Press a key to exit...")
+    print()
+    print("The default value has been over-written with worker_fn's result:")
+    print(main_nparray)
+    print()
+    input("Press a key to exit...")

@@ -26,11 +26,11 @@ class ForceHash(object):
 def sample_probe(force_hash, num_samples=10):
     probe_values = index_sequence(force_hash)
     indexes = islice(probe_values, num_samples)
-    print "First {} samples for hash {: >10}: {}".format(
+    print("First {} samples for hash {: >10}: {}".format(
         num_samples,
         force_hash,
         list(indexes)
-    )
+    ))
 
 
 if __name__ == "__main__":

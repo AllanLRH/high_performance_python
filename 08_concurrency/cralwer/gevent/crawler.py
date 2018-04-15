@@ -3,19 +3,19 @@ monkey.patch_socket()
 
 import gevent
 from gevent.coros import Semaphore
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 from contextlib import closing
 import string
 import random
 
 
 def generate_urls(base_url, num_urls):
-    for i in xrange(num_urls):
+    for i in range(num_urls):
         yield base_url + "".join(random.sample(string.ascii_lowercase, 10))
 
 
 def download(url, semaphore):
-    with semaphore, closing(urllib2.urlopen(url)) as data:
+    with semaphore, closing(urllib.request.urlopen(url)) as data:
         return data.read()
 
 
@@ -41,4 +41,4 @@ if __name__ == "__main__":
     start = time.time()
     result = run_experiment(base_url, num_iter)
     end = time.time()
-    print("Result: {}, Time: {}".format(result, end - start))
+    print(("Result: {}, Time: {}".format(result, end - start)))

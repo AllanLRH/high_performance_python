@@ -2,7 +2,7 @@ import math
 import random
 import time
 import argparse
-import cPickle
+import pickle
 import multiprocessing
 from matplotlib import pyplot as plt
 
@@ -10,7 +10,7 @@ from matplotlib import pyplot as plt
 def check_prime(n):
     if n % 2 == 0:
         return False
-    for i in xrange(3, int(math.sqrt(n)) + 1, 2):
+    for i in range(3, int(math.sqrt(n)) + 1, 2):
         if n % i == 0:
             return False
     return True
@@ -35,16 +35,16 @@ if __name__ == "__main__":
     NBR_PROCESSES = 4
     pool = multiprocessing.Pool(processes=NBR_PROCESSES)
 
-    number_range = range(100000000, 100100000)  # B
+    number_range = list(range(100000000, 100100000))  # B
     shuffle_in_filename = ""
     if args.shuffle:
-        print "Shuffling..."
+        print("Shuffling...")
         shuffle_in_filename = "shuffled_"
         random.shuffle(number_range)
 
     plot_type = args.type
     CREATE_DATA = args.create_data
-    print args
+    print(args)
     filename = "primes_pool_plot_chunksize_{}type{}.pickle".format(
         shuffle_in_filename, plot_type)
     png_filename = "08_primes_pool_plot_chunksizetimes_1to50000_{}plottype{}.png".format(
@@ -63,7 +63,7 @@ if __name__ == "__main__":
         for chunksize in chunksizes:
             min_time = 99999999
             # run a number of trials and pick the fastest to avoid jitter
-            for trial in xrange(10):
+            for trial in range(10):
                 t1 = time.time()
                 pool.map(check_prime, number_range, chunksize=chunksize)
                 t2 = time.time()
@@ -71,7 +71,7 @@ if __name__ == "__main__":
             time_per_chunksize.append(min_time)
         min_time = 99999999
         # run a number of trials and pick the fastest to avoid jitter
-        for trial in xrange(10):
+        for trial in range(10):
             t1 = time.time()
             pool.map(check_prime, number_range)
             t2 = time.time()
@@ -80,10 +80,10 @@ if __name__ == "__main__":
         mp_chunksize, mp_extra = divmod(len(number_range), NBR_PROCESSES * 4)
         if mp_extra:
             mp_chunksize += 1
-        cPickle.dump((chunksizes, time_per_chunksize, mp_extra,
+        pickle.dump((chunksizes, time_per_chunksize, mp_extra,
                       mp_chunksize, mp_default_time), open(filename, 'wb'))
     else:
-        chunksizes, time_per_chunksize, mp_extra, mp_chunksize, mp_default_time = cPickle.load(
+        chunksizes, time_per_chunksize, mp_extra, mp_chunksize, mp_default_time = pickle.load(
             open(filename))
         # make a figure, show the experimental timings
         f = plt.figure(1)

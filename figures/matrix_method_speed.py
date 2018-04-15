@@ -15,13 +15,13 @@ if __name__ == "__main__":
     for item in data_raw:
         name = item.pop("method")
         if name != 'python':
-            values = sorted((int(k), float(v)) for k, v in item.iteritems())
+            values = sorted((int(k), float(v)) for k, v in item.items())
             data.append((name, np.asarray(values)))
 
     py.figure()
     for name, values in data:
-        py.plot(values[:, 0], values[:, 1], linestyle=linestyles.next(),
-                marker=markers.next(), label=name, linewidth=4)
+        py.plot(values[:, 0], values[:, 1], linestyle=next(linestyles),
+                marker=next(markers), label=name, linewidth=4)
 
     py.ylim(ymin=0, ymax=90)
     py.legend(loc='upper center', ncol=3, mode="expand", borderaxespad=0.,

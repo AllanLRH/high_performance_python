@@ -1,4 +1,4 @@
-from ll import LL
+from .ll import LL
 import math
 
 

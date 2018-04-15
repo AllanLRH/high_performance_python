@@ -10,7 +10,7 @@ AsyncHTTPClient.configure(
 
 
 def generate_urls(base_url, num_urls):
-    for i in xrange(num_urls):
+    for i in range(num_urls):
         yield base_url + "".join(random.sample(string.ascii_lowercase, 10))
 
 
@@ -36,7 +36,7 @@ def run_experiment(base_url, num_iter=500, callback=None):
 
 def _finish_run_experiment(responses, callback):
     response_sum = sum(len(r.body) for r in responses)
-    print response_sum
+    print(response_sum)
     callback()
 
 if __name__ == "__main__":
@@ -52,4 +52,4 @@ if __name__ == "__main__":
     start = time.time()
     _ioloop.start()
     end = time.time()
-    print (end - start)
+    print((end - start))

@@ -23,7 +23,7 @@ for n in range(30):
     zs2.append(az)
 
 
-print zs2[:20]
+print(zs2[:20])
 
 
 from matplotlib import pyplot as plt

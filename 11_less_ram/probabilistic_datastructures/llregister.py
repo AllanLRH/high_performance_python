@@ -1,5 +1,5 @@
 import mmh3
-from utils import trailing_zeros
+from .utils import trailing_zeros
 
 
 class LLRegister(object):

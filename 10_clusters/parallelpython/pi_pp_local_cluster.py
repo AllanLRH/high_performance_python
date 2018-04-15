@@ -73,7 +73,7 @@ NBR_ESTIMATES = 1e8
 
 
 def calculate_pi(nbr_estimates):
-    steps = xrange(int(nbr_estimates))
+    steps = range(int(nbr_estimates))
     nbr_trials_in_unit_circle = 0
     for step in steps:
         x = random.uniform(0, 1)
@@ -95,7 +95,7 @@ if __name__ == "__main__":
 
     # job_server = pp.Server(ppservers=ppservers)  # by default this would
     # enable 8 workers
-    print "Starting pp with", job_server.get_ncpus(), "local workers"
+    print("Starting pp with", job_server.get_ncpus(), "local workers")
     nbr_trials_per_process = [NBR_ESTIMATES] * NBR_JOBS
     t1 = time.time()
     jobs = []
@@ -109,15 +109,15 @@ if __name__ == "__main__":
     job_server.print_stats()  # dump some debug info
 
     processors_in_cluster = 0
-    for machine_id, stats in job_server.get_stats().items():
-        print "Found", machine_id
+    for machine_id, stats in list(job_server.get_stats().items()):
+        print("Found", machine_id)
         processors_in_cluster += stats.ncpus
-    print "Across the cluster we have {} CPUs".format(processors_in_cluster)
+    print("Across the cluster we have {} CPUs".format(processors_in_cluster))
 
-    print "Amount of work:", sum(nbr_trials_per_process)
-    print "Sum of trials inside the unit circle", sum(nbr_in_unit_circles)
-    print sum(nbr_in_unit_circles) * 4 / NBR_JOBS / NBR_ESTIMATES
-    print calculate_pi.func_name
+    print("Amount of work:", sum(nbr_trials_per_process))
+    print("Sum of trials inside the unit circle", sum(nbr_in_unit_circles))
+    print(sum(nbr_in_unit_circles) * 4 / NBR_JOBS / NBR_ESTIMATES)
+    print(calculate_pi.__name__)
     overall_time = time.time() - t1
-    print "Delta:", overall_time
-    print "Average time", overall_time / NBR_JOBS
+    print("Delta:", overall_time)
+    print("Average time", overall_time / NBR_JOBS)

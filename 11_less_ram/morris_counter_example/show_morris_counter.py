@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import morris_counter
 import argparse
-import cPickle
+import pickle
 
 
 MAX_COUNT = 100000
@@ -15,24 +15,24 @@ if __name__ == "__main__":
     parser.add_argument('--build', action="store_true",
                         default=False, help='required positional argument')
     args = parser.parse_args()
-    print args
+    print(args)
 
     if args.build:
-        values_we_count = range(MAX_COUNT)
+        values_we_count = list(range(MAX_COUNT))
         trials_of_morris_counting = []
-        for trial in xrange(NBR_MORRIS_COUNTERS_TO_TRY):
+        for trial in range(NBR_MORRIS_COUNTERS_TO_TRY):
             mc = morris_counter.MorrisCounter()
             values_in_morris_counter = []
             for n in values_we_count:
                 mc.add()
                 values_in_morris_counter.append(mc.get())
             trials_of_morris_counting.append(values_in_morris_counter)
-        cPickle.dump((values_we_count, trials_of_morris_counting,
+        pickle.dump((values_we_count, trials_of_morris_counting,
                       values_in_morris_counter), open(PICKLE_FILENAME, 'w'))
     else:
-        print "Loading from", PICKLE_FILENAME, " writing to", PNG_FILENAME
+        print("Loading from", PICKLE_FILENAME, " writing to", PNG_FILENAME)
         (values_we_count, trials_of_morris_counting,
-         values_in_morris_counter) = cPickle.load(open(PICKLE_FILENAME, 'r'))
+         values_in_morris_counter) = pickle.load(open(PICKLE_FILENAME, 'r'))
         plt.figure(1)
         plt.clf()
 

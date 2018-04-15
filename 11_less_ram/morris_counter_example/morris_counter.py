@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """Approximate Morris Counter supporting many counters"""
-from __future__ import division  # 1/2 == 0.5, as in Py3
+  # 1/2 == 0.5, as in Py3
 # avoid hiding global modules with locals
-from __future__ import absolute_import
-from __future__ import print_function  # force use of print("hello")
+
+  # force use of print("hello")
 # force unadorned strings "" to be unicode without prepending u""
-from __future__ import unicode_literals
+
 import math
 import random
 import array
@@ -50,6 +50,6 @@ if __name__ == "__main__":
         print("Iteration %d, MorrisCounter has: %d" % (n, mc.get()))
         mc.add()
 
-    for n in xrange(990):
+    for n in range(990):
         mc.add()
     print("Iteration 1000, MorrisCounter has: %d" % (mc.get()))

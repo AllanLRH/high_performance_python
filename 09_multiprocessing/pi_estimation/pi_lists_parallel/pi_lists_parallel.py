@@ -5,7 +5,7 @@ import argparse
 
 def estimate_nbr_points_in_quarter_circle(nbr_estimates):
     nbr_trials_in_quarter_unit_circle = 0
-    for step in xrange(int(nbr_estimates)):
+    for step in range(int(nbr_estimates)):
         x = random.uniform(0, 1)
         y = random.uniform(0, 1)
         is_in_unit_circle = x * x + y * y <= 1.0
@@ -31,22 +31,22 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     if args.processes:
-        print "Using Processes"
+        print("Using Processes")
         from multiprocessing import Pool
     else:
-        print "Using Threads"
+        print("Using Threads")
         from multiprocessing.dummy import Pool
 
     nbr_samples_in_total = args.nbr_samples_in_total  # should be 1e8
     nbr_parallel_blocks = args.nbr_workers
     pool = Pool(processes=nbr_parallel_blocks)
     nbr_samples_per_worker = nbr_samples_in_total / nbr_parallel_blocks
-    print "Making {} samples per {} worker".format(nbr_samples_per_worker, nbr_parallel_blocks)
+    print("Making {} samples per {} worker".format(nbr_samples_per_worker, nbr_parallel_blocks))
     nbr_trials_per_process = [nbr_samples_per_worker] * nbr_parallel_blocks
     t1 = time.time()
     nbr_in_quarter_unit_circles = pool.map(
         estimate_nbr_points_in_quarter_circle, nbr_trials_per_process)
     pi_estimate = sum(nbr_in_quarter_unit_circles) * \
         4 / float(nbr_samples_in_total)
-    print "Estimated pi", pi_estimate
-    print "Delta:", time.time() - t1
+    print("Estimated pi", pi_estimate)
+    print("Delta:", time.time() - t1)

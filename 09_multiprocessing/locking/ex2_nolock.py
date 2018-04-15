@@ -25,8 +25,8 @@ def run_workers():
         p.join()
 
     # print the final value
-    print "Expecting to see a count of {}".format(total_expected_count)
-    print "We have counted to {}".format(value.value)
+    print("Expecting to see a count of {}".format(total_expected_count))
+    print("We have counted to {}".format(value.value))
 
 if __name__ == "__main__":
     run_workers()

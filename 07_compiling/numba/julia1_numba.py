@@ -23,7 +23,7 @@ def calculate_z_serial_purepython(maxiter, zs, cs, output):
     #print("zs has type:", numba.typeof(zs))
     #print("cs has type:", numba.typeof(cs))
     #print("output has type:", numba.typeof(output))
-    for i in xrange(len(zs)):
+    for i in range(len(zs)):
         n = 0
         z = zs[i]
         c = cs[i]
@@ -61,8 +61,8 @@ def calc_pure_python(draw_output, desired_width, max_iterations):
             zs.append(complex(xcoord, ycoord))
             cs.append(complex(c_real, c_imag))
 
-    print("Length of x:", len(x))
-    print("Total elements:", len(zs))
+    print(("Length of x:", len(x)))
+    print(("Total elements:", len(zs)))
     zs2 = np.array(zs, np.complex128)
     cs2 = np.array(cs, np.complex128)
     start_time = time.time()
@@ -70,10 +70,10 @@ def calc_pure_python(draw_output, desired_width, max_iterations):
     calculate_z_serial_purepython(max_iterations, zs2, cs2, output)
     end_time = time.time()
     secs = end_time - start_time
-    print("took", secs, "seconds")
+    print(("took", secs, "seconds"))
 
     validation_sum = sum(output)
-    print("Total sum of elements (for validation):", validation_sum)
+    print(("Total sum of elements (for validation):", validation_sum))
 
 
 # Calculate the Julia set using a pure Python solution with

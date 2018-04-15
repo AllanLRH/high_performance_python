@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
     t = 0
     grids = [(t, grid.copy()), ]
-    for i in xrange(3):
+    for i in range(3):
         for i in range(5000 * (4 ** i) + 1):
             grid = evolve(grid, 0.1)
         t += i * 0.1

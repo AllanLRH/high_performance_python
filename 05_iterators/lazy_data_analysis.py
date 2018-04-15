@@ -9,7 +9,7 @@ def read_data(filename):
     with open(filename) as fd:
         for line in fd:
             data = line.strip().split(',')
-            yield map(int, data)
+            yield list(map(int, data))
 
 
 def read_fake_data(filename):
@@ -53,24 +53,24 @@ def rolling_window_grouper(data, window_size):
     while True:
         current_datetime = datetime.fromtimestamp(window[0][0])
         yield (current_datetime, window)
-        window = window[1:] + (data.next(),)
+        window = window[1:] + (next(data),)
 
 
 if __name__ == "__main__":
-    print "Using day_grouper:"
+    print("Using day_grouper:")
     data = read_fake_data("fake_filename")
     data_day = day_grouper(data)
-    anomalous_dates = ifilter(None, imap(check_anomaly, data_day))
-    first_anomalous_date = anomalous_dates.next()
-    print "The first anomalous date is: ", first_anomalous_date
+    anomalous_dates = filter(None, map(check_anomaly, data_day))
+    first_anomalous_date = next(anomalous_dates)
+    print("The first anomalous date is: ", first_anomalous_date)
     next_10_dates = islice(anomalous_dates, 10)
-    print "The next 10 anomalous dates are: ", list(next_10_dates)
+    print("The next 10 anomalous dates are: ", list(next_10_dates))
 
-    print "Using rolling_window_grouper:"
+    print("Using rolling_window_grouper:")
     data = read_fake_data("fake_filename")
     data_day = rolling_window_grouper(data, window_size=86400)
-    anomalous_dates = ifilter(None, imap(check_anomaly, data_day))
-    first_anomalous_date = anomalous_dates.next()
-    print "The first anomalous date is: ", first_anomalous_date
+    anomalous_dates = filter(None, map(check_anomaly, data_day))
+    first_anomalous_date = next(anomalous_dates)
+    print("The first anomalous date is: ", first_anomalous_date)
     next_10_dates = islice(anomalous_dates, 10)
-    print "The next 10 anomalous dates are: ", list(next_10_dates)
+    print("The next 10 anomalous dates are: ", list(next_10_dates))

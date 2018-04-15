@@ -5,7 +5,7 @@ import time
 def check_prime(n):
     if n % 2 == 0:
         return False, 2
-    for i in xrange(3, int(math.sqrt(n)) + 1):
+    for i in range(3, int(math.sqrt(n)) + 1):
         if n % i == 0:
             return False, i
     return True, None
@@ -18,7 +18,7 @@ if __name__ == "__main__":
     #  100109100129100151 big prime
     # http://primes.utm.edu/curios/page.php/100109100129100151.html
     #number_range = xrange(100109100129100153, 100109100129101238, 2)
-    number_range = xrange(100109100129101237, 100109100129201238, 2)
+    number_range = range(100109100129101237, 100109100129201238, 2)
 
     # new expensive near-primes
     # [(95362951, (100109100129100369, 7.254560947418213))
@@ -38,11 +38,11 @@ if __name__ == "__main__":
         is_prime, factor = check_prime(possible_prime)
         if is_prime:
             primes.append(possible_prime)
-            print "GOT NEW PRIME", possible_prime
+            print("GOT NEW PRIME", possible_prime)
         else:
             highest_factors[factor] = (possible_prime, time.time() - t2)
-            hf = highest_factors.items()
+            hf = list(highest_factors.items())
             hf.sort(reverse=True)
-            print hf[:3]
-    print "Took:", time.time() - t1
-    print len(primes), primes[:10], primes[-10:]
+            print(hf[:3])
+    print("Took:", time.time() - t1)
+    print(len(primes), primes[:10], primes[-10:])

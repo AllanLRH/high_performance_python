@@ -4,7 +4,7 @@ import ujson as json
 if __name__ == "__main__":
     raw_data = json.load(open("metric_data.json"))
 
-    for name, values in raw_data.iteritems():
+    for name, values in raw_data.items():
         print(name)
         py.figure()
         py.title("Call timeline for {}".format(name))

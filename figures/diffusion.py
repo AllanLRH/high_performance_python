@@ -3,7 +3,7 @@
 from numpy import (zeros, empty, multiply, copyto, asarray)
 from numexpr import evaluate
 import pylab as py
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 grid_shape = (512, 512)
 
@@ -43,7 +43,7 @@ if __name__ == "__main__":
     block_high = int(grid_shape[0] * .5)
     grid_square[block_low:block_high, block_low:block_high] = 0.005
 
-    grid_python = 1 - py.imread(urllib.urlopen(
+    grid_python = 1 - py.imread(urllib.request.urlopen(
         "http://a4.mzstatic.com/us/r30/Purple4/v4/e8/20/fd/e820fded-8a78-06ac-79d0-f1d140346976/mzl.huoealqj.png")).mean(2)
     grid_python = asarray(grid_python, dtype='float64')
     scratch_python = empty(grid_python.shape)

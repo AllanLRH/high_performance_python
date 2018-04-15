@@ -8,8 +8,8 @@ def norm_square_list(vector):
     return norm
 
 def run_experiment(size, num_iter=3):
-    vector = range(size)
+    vector = list(range(size))
     return _util.run(norm_square_list, vector, num_iter)
 
 if __name__ == "__main__":
-    print run_experiment(1000000, 10)
+    print(run_experiment(1000000, 10))

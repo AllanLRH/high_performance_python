@@ -4,7 +4,7 @@ import unittest
 
 def create(range_from, range_to, chunks):
     partial_range_length = (range_to - range_from) / float(chunks)
-    lower_ranges = range(range_from, range_to, int(partial_range_length))
+    lower_ranges = list(range(range_from, range_to, int(partial_range_length)))
     # keep the first lower_range (it might be just 2), make sure each
     # subsequent value is odd
     lrs = [lower_ranges[0]]
@@ -17,8 +17,8 @@ def create(range_from, range_to, chunks):
     if len(lower_ranges) > chunks:
         lower_ranges.pop()
     assert len(lower_ranges) == chunks
-    ranges = zip(
-        lower_ranges, lower_ranges[1:]) + [(lower_ranges[-1], range_to)]
+    ranges = list(zip(
+        lower_ranges, lower_ranges[1:])) + [(lower_ranges[-1], range_to)]
     return ranges
 
 

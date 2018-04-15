@@ -27,9 +27,9 @@ class TestCase(unittest.TestCase):
 
     def test(self):
         result = some_fn(2)
-        self.assertEquals(result, 4)
+        self.assertEqual(result, 4)
 
 
 if __name__ == "__main__":
-    print "do some work:", some_fn(2)
+    print("do some work:", some_fn(2))
     # unittest.main()
