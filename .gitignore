@@ -1,2 +1,7 @@
 *.pyc
 *.sw*
+buid
+*.c
+*.so
+build/
+diffusion.so
