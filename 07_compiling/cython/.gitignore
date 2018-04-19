@@ -1,0 +1,4 @@
+buid
+*.c
+*.so
+build/
